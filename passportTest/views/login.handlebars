@@ -1,14 +1,14 @@
 <h1>Login</h1>
 <div>
+    {{!-- messages.error gets set by flash setting a messages variable to all
+    different flash messages, passport is going to set an error as defined 
+    by the third parameter in any failed done() in passport-config 
+    (so the error any given user gets at any given time) --}}
 {{#if messages.error}}
-<h1>{{messages.error}}</h1>
+<h3>{{messages.error}}</h3>
 {{/if}}
 </div>
-<form action="/register" method="POST">
-{{!-- <div>
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
-</div> --}}
+<form action="/login" method="POST">
 <div>
     <label for="email">Email</label>
     <input type="text" id="email" name="email" required>

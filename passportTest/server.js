@@ -56,7 +56,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/register',
+    failureRedirect: '/login',
     // This line allows the failure message that is set as the third parameter 
     // for any failed done() function in passport-config
     failureFlash: true
