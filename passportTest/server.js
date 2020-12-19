@@ -56,15 +56,15 @@ app.get('/login', (req, res) => {
 
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/register',
     // This line allows the failure message that is set as the third parameter 
     // for any failed done() function in passport-config
-    failureFlash: 'Incorrect username or password'
+    failureFlash: true
 }));
 
 app.get('/register', (req, res) => {
     res.render('register');
-    // console.log(users)
+    // console.log('failed')
 });
 
 
