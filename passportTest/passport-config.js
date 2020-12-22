@@ -1,7 +1,7 @@
 const localStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
 
-function initialize(passport, getUserByEmail){
+function initialize(passport, getUserByEmail, getUserById){
     // For the authenticateUser function, you would typically
     // pass username, password and done. In this case, we have set the
     // usernameField to email, so it is email. 
@@ -14,7 +14,7 @@ function initialize(passport, getUserByEmail){
         }
 
         try{
-            if (await bcrypt.compare(password, user.password)){
+            if (await bcrypt.compare(password || user.password)){
                 return done(null, user)
             }else{
                 return done(null, false, {message: 'Password Incorrect'})
@@ -31,9 +31,11 @@ function initialize(passport, getUserByEmail){
 //     // parameters that localStrategy expects to find credentials for
 //     // by default.
     passport.use(new localStrategy({usernameField: 'email'}, authenticateUser))
-    passport.serializeUser((user, done) => {  })
-    passport.deserializeUser((id, done) => {  })
-}
+    passport.serializeUser((user, done) => done(null, user.id))
+    passport.deserializeUser((id, done) => {
+        return done(null, getUserById(id));
+    });
+};
 
 module.exports = initialize;
 
